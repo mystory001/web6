@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mappers.reBoardMapper">
+	
+<!-- 	DTO가 아니면 parameterType="map" -->
+	<insert id="insertBoard" parameterType="map">
+		insert into reboard(num, name, subject, content, readcount, date, re_ref, re_lev, re_sql)
+		values (#{num}, #{name}, #{subject}, #{content}, #{readcount}, #{date}, #{re_ref}, #{re_lev}, #{re_sql}) 
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(num) from reboard
+	</select>
+
+	<select id="getBoardList" resultType="map">
+		select * from reboard
+		<if test="search !=null">
+		where subject like CONCAT('%',#{search},'%')
+		</if>
+		order by re_ref desc, re_sql asc
+		limit #{startRow},#{pageSize}
+<!-- 		where 시작행 - 1, 개수 db에서 -1을 할 수 없기 때문에 reboardService에서 작업-->
+	</select>
+
+	<!-- 검색어 포함 -->
+	<select id="getBoardCount" resultType="java.lang.Integer">
+		select count(*)
+		from reboard
+		<if test="search !=null">
+		where subject like CONCAT('%',#{search},'%');
+		</if>
+	</select>
+	
+	<select id="getBoard" resultType="com.itwillbs.domain.BoardDTO">
+		select *
+		from reboard
+		where num = #{num}
+	</select>
+		
+	<update id="updateReadcount">
+	update reboard
+	set readcount = #{readcount}
+	where num = #{num}
+	</update>
+	
+	
+	<update id="updateBoard">
+	update reboard
+	set subject = #{subject}, content = #{content}
+	where num = #{num}
+	</update>
+	
+	<delete id="deleteBoard">
+	delete from reboard
+	where num = #{num}
+	</delete>
+	
+<!-- 답글 순서 재배치 => 같은 그룹이면서 답글이 있으면(답글의 순서값이 큰 값이 있으면) => 답글의 순서를 1칸 아래로 재배치 -->
+	<update id="updateResql">
+	update reboard
+	set re_sql = re_sql + 1
+	where re_ref = #{re_ref} and re_sql > #{re_sql}
+	</update>
+	
+	
+</mapper>
+
+
