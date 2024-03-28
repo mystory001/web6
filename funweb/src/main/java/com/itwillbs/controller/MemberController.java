@@ -21,6 +21,9 @@ import com.itwillbs.service.MemberService;
 public class MemberController {
 	
 	//MemberService 파일 만들고 MemberService 객체 생성 => 멤버변수 자동으로 주입
+	//MemberService memberService = new MemberService();
+	//멤버 변수를 정의하고 root-context.xml에서 객체 생성해서 멤버 변수에 전달(주입)
+	//p50 의존 관계 주입
 	@Inject
 	private MemberService memberService; 
 	
@@ -159,7 +162,13 @@ public class MemberController {
 //		return result;
 //	}
 	
-	
+	@GetMapping("/list")
+	public String list() {
+		System.out.println("MemberController list()");
+		
+		// member/list.jsp 화면으로 주소 변경 없이 이동
+		return "/member/list";
+	}
 	
 	
 	

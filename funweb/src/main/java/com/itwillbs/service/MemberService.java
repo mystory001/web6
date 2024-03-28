@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -43,6 +44,11 @@ public class MemberService {
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberService updateMember()");
 		memberDAO.updateMember(memberDTO);
+	}
+
+	public List<MemberDTO> getMemberList() {
+		System.out.println("MemberService getMemberList()");
+		return memberDAO.getMemberList();
 	}
 
 	

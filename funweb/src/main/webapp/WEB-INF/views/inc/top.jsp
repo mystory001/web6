@@ -12,7 +12,13 @@
 
 <!-- 로그인 되었을 때 나타나야할 정보(logout, update) -->
 <c:if test="${!empty sessionScope.id }">
-<div id="login">${sessionScope.id}님 | <a href="${pageContext.request.contextPath}/member/logout">logout</a> | <a href="${pageContext.request.contextPath}/member/update">update</a></div>
+<div id="login">${sessionScope.id}님 | 
+<a href="${pageContext.request.contextPath}/member/logout">logout</a> | 
+<a href="${pageContext.request.contextPath}/member/update">update</a>
+<c:if test="${sessionScope.id eq 'admin' }">
+ | <a href="${pageContext.request.contextPath}/member/list">list</a>
+</c:if>
+</div>
 </c:if>
 
 <div class="clear"></div>

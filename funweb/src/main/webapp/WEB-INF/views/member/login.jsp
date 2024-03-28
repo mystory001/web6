@@ -21,6 +21,7 @@
 
  </script>
  <![endif]-->
+ <script src="${pageContext.request.contextPath}/resources/script/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 <div id="wrap">
@@ -46,10 +47,12 @@
 <form action="${pageContext.request.contextPath}/member/loginPro" id="join" method="post">
 <fieldset>
 <legend>Login Info</legend>
+<label></label>
+<div id="checkdiv"></div><br>
 <label>User ID</label>
-<input type="text" name="id"><br>
+<input type="text" name="id" class="id"><br>
 <label>Password</label>
-<input type="password" name="pw"><br>
+<input type="password" name="pw" class="pw"><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
@@ -66,5 +69,36 @@
 <jsp:include page="../inc/bottom.jsp" />
 <!-- 푸터들어가는 곳 -->
 </div>
+<script>
+$(function(){
+	
+	$('#join').submit(function(){
+		
+		if($('.id').val() === ''|| $('.id').val() === null){
+// 			alert('아이디를 입력해주세요.');
+			$('#checkdiv').html("아이디를 입력해주세요.").css("color", "red");
+			$('.id').focus();
+			return false;
+		}
+		
+		if($('.pw').val() === '' || $('.pw').val() === null){
+// 			alert('비밀번호를 입력해주세요.');
+			$('#checkdiv').html("비밀번호를 입력해주세요.").css("color", "red");
+			$('.pw').focus();
+			return false;
+		}
+		
+		//값을 어디서 가져와야함? ajax 처리
+// 		if($('.id').val() && $('.pw').val()){
+// 			$('#checkdiv').html("회원 정보를 다시 확인해주세요.").css("color","red");
+// 		}
+		
+		
+	});
+	
+});
+
+
+</script>
 </body>
 </html>

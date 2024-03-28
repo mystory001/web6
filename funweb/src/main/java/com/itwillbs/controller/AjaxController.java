@@ -71,7 +71,19 @@ public class AjaxController {
 		return entity;
 	}
 	
-	
+	//http://localhost:8080/funweb/member/list
+	@GetMapping("/member/listjson")
+	public ResponseEntity<List<MemberDTO>> memberlistjson(){
+		System.out.println("AjaxController memberlistjson");
+		
+		List<MemberDTO> memberList = memberService.getMemberList();
+		
+		//memberList => json 변경 프로그램 설치
+		//데이터를 json형태로 변경하는 프로그램 jackson-databind
+		ResponseEntity<List<MemberDTO>> entity = new ResponseEntity<List<MemberDTO>>(memberList, HttpStatus.OK);
+		
+		return entity;
+	}
 	
 	
 	

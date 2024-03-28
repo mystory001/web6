@@ -1,5 +1,7 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -40,6 +42,12 @@ public class MemberDAO {
 	public void updateMember(MemberDTO memberDTO) {
 		System.out.println("MemberDAO updateMember()");
 		sqlSession.update(namespace+".updateMember", memberDTO);
+	}
+
+
+	public List<MemberDTO> getMemberList() {
+		System.out.println("MemberDAO getMemberList()");
+		return sqlSession.selectList(namespace+".getMemberList");
 	}
 	
 	
